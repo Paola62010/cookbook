@@ -9,6 +9,9 @@ class Category(models.Model):
     name = models.CharField(max_length=80, unique=True)
     category_image = models.ImageField(upload_to="categories", blank=True)
 
+    class Meta:
+        verbose_name_plural = "categories"
+
     def __str__(self):
         return self.name
 

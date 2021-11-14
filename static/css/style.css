@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Roboto+Slab&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+body {
+	font-family: Roboto, sans-serif;
+	font-size: 1.3rem;
+}
+
+.teal {
+	background-color: #1f95ad;
+}
+
+#logo {
+	font-family: Comfortaa, sans-serif;
+	font-size: 2.3rem;
+}
+
+.socialmedia-links li {
+	list-style: none;
+	display: inline-block;
+}
