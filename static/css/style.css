@@ -10,6 +10,10 @@ body {
 	background-color: #1f95ad;
 }
 
+.light-teal {
+	background-color: #edf4f5;
+}
+
 #logo {
 	font-family: Comfortaa, sans-serif;
 	font-size: 2.3rem;
@@ -18,4 +22,31 @@ body {
 .socialmedia-links li {
 	list-style: none;
 	display: inline-block;
+}
+
+.search-button {
+	background-color: #1f95ad;
+	color: white;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.form-control {
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.card {
+	height: 100%;
+}
+
+.card-img-top {
+	width: 100%;
+	object-fit: cover;
+	height: 350px;
+}
+
+.card-body {
+	background-color: #1f95ad;
+	color: white;
 }
