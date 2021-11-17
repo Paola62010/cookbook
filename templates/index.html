@@ -2,6 +2,72 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
+<section class="container py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1>Hi {{user.username}}</h1>
+            <p>What are you cooking today? Check out the recipes created by our community in the public tab. Your own recipes will be organised in your personal tab. Create a new recipe by clicking on the plus sign. Happy cooking!</p>
+        </div>   
+    </div>
+    <div class="row py-3">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search CookBook" aria-label="Search">
+                <button class="btn search-button" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="py-5 light-teal">
+    <div class="container">
+        <nav>
+            <div class="nav nav-tabs justify-content-center my-3" id="nav-tab" role="tablist">
+              <button class="nav-link active tab-button" id="nav-public-tab" data-bs-toggle="tab" data-bs-target="#nav-public" type="button" role="tab" aria-controls="nav-public" aria-selected="true">PUBLIC</button>
+              <button class="nav-link tab-button" id="nav-personal-tab" data-bs-toggle="tab" data-bs-target="#nav-personal" type="button" role="tab" aria-controls="nav-personal" aria-selected="false">PERSONAL</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-public" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
+                    {% for category in category_list %}
+                    <div class="col">
+                        <a href="#">
+                        <div class="card shadow">
+                            <img src="{{category.category_image.url}}" class="card-img-top" alt="Food category image">
+                            <div class="card-body">
+                              <p class="card-text text-center">{{ category.name }}</p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
+                    {% for category in category_list %}
+                    <div class="col">
+                        <a href="#">
+                        <div class="card shadow">
+                            <img src="{{category.category_image.url}}" class="card-img-top" alt="Food category image">
+                            <div class="card-body">
+                              <p class="card-text text-center">{{ category.name }}</p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
+        
+    </div>
+</section>
+
+{% else %}
+
 <section class="container py-5 text-center">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -20,21 +86,23 @@
 </section>
 <section class="py-5 light-teal">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
             {% for category in category_list %}
             <div class="col">
+                <a href="#">
                 <div class="card shadow">
                     <img src="{{category.category_image.url}}" class="card-img-top" alt="Food category image">
                     <div class="card-body">
                       <p class="card-text text-center">{{ category.name }}</p>
                     </div>
                 </div>
+                </a>
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-
+{% endif %}
 
 {% endblock %}

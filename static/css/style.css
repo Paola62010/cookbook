@@ -6,6 +6,10 @@ body {
 	font-size: 1.3rem;
 }
 
+a {
+	text-decoration: none;
+}
+
 .teal {
 	background-color: #1f95ad;
 }
@@ -19,9 +23,17 @@ body {
 	font-size: 2.3rem;
 }
 
+.orange {
+	color: #fa9138;
+}
+
 .socialmedia-links li {
 	list-style: none;
 	display: inline-block;
+}
+
+footer i:hover {
+	color: #fa9138;
 }
 
 .search-button {
@@ -29,6 +41,12 @@ body {
 	color: white;
 	font-family: inherit;
 	font-size: inherit;
+}
+
+.search-button:hover {
+	background-color: white;
+	color: #1f95ad;
+	border: 1px solid #1f95ad;
 }
 
 .form-control {
@@ -47,6 +65,19 @@ body {
 }
 
 .card-body {
-	background-color: #1f95ad;
+	background-color: #7cbfc1;
 	color: white;
+}
+
+.card-body:hover {
+	background-color: #1f95ad;
+}
+
+.tab-button {
+	color: #1f95ad;
+}
+
+.tab-button:hover {
+	color: white;
+	background-color: #1f95ad;
 }
