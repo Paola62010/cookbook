@@ -7,20 +7,25 @@
 
 {% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+<main class="d-flex">
+<div class="container-fluid light-teal p-0 d-flex flex-column justify-content-center align-items-center">
+  <div class="text-center log-bg p-3 m-3 shadow-lg row">
+    <h2 class="py-3">{% trans "Sign In" %}</h2>
 
 
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+    <p class="py-3">{% blocktrans %}If you have not created an account yet, then please
+    <a class= "log-link" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+      <button class="primaryAction my-3 log-btn btn" type="submit">{% trans "Sign In" %}</button>
+    </form>
+</div>
+</div>
+</main>
 {% endblock %}

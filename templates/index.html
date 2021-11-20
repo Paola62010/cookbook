@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<main>
+
 {% if user.is_authenticated %}
 
 <section class="container py-5 text-center">
@@ -10,7 +12,7 @@
     </div>
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1>Hi {{user.username}}</h1>
+            <h1 class="mb-5">Hi {{user.username}}</h1>
             <p>What are you cooking today? Check out the recipes created by our community in the public tab. Your own recipes will be organised in your personal tab. Create a new recipe by clicking on the plus sign. Happy cooking!</p>
         </div>   
     </div>
@@ -74,7 +76,7 @@
 <section class="container py-5 text-center">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1>Lets cook</h1>
+            <h1 class="mb-5">Lets cook</h1>
             <p>Welcome to our recipe sharing platform. Search CookBook for recipes uploaded by our community of food lovers. Create an account to create, organize and share your own recipes. Happy cooking!</p>
         </div>   
     </div>
@@ -107,5 +109,7 @@
 </section>
 
 {% endif %}
+
+</main>
 
 {% endblock %}

@@ -46,7 +46,6 @@ footer i:hover {
 .search-button {
 	background-color: #1f95ad;
 	color: white;
-	font-family: inherit;
 	font-size: inherit;
 }
 
@@ -95,4 +94,37 @@ footer i:hover {
 
 #plus-sign:hover {
 	color: #1f95ad;
+}
+
+.log-btn {
+	color: white;
+	background-color: #1f95ad;
+	font-size: inherit;
+}
+
+.log-btn:hover {
+	background-color: #fa9138;
+	color: white;
+}
+
+.log-link {
+	color: #1f95ad;
+}
+
+.log-link:hover {
+	color: #fa9138;
+}
+
+label {
+	display: block;
+}
+
+label[for="id_remember"] {
+	display: inline-block;
+}
+
+.log-bg {
+	border: 2px solid #fa9138;
+	border-radius: 0.25rem;
+	background-color: white;
 }
