@@ -70,12 +70,14 @@ footer i:hover {
 }
 
 .card-body {
-	background-color: #7cbfc1;
+	background-color: #1f95ad;
 	color: white;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
 }
 
 .card-body:hover {
-	background-color: #1f95ad;
+	background-color: #fa9138;
 }
 
 .tab-button {
