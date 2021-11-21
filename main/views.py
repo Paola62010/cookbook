@@ -14,7 +14,7 @@ class PublicRecipeList(View):
         category = get_object_or_404(Category, slug=slug)
         queryset = Recipe.objects.filter(public=True, category__slug=slug).order_by('-created_on')
         context = {
-            'object_list': queryset,
+            'recipe_list': queryset,
             'category': category
             }
 
@@ -30,7 +30,7 @@ class PersonalRecipeList(View):
         category = get_object_or_404(Category, slug=slug)
         queryset = Recipe.objects.filter(author=request.user, category__slug=slug).order_by('-created_on')
         context = {
-            'object_list': queryset,
+            'recipe_list': queryset,
             'category': category
             }
 
