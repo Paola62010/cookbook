@@ -10,5 +10,24 @@ admin.site.site_header = 'CookBook Administration'
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'created_on', 'updated_on',)
     list_filter = ('created_on', 'updated_on',)
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
+
+
+class InLineIngredient(admin.StackedInline):
+    model = Ingredient
+    extra = 1
+
+
+class InLineStep(admin.StackedInline):
+    model = Step
+    extra = 1
+
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    inlines = [InLineIngredient, InLineStep]
+    list_display = ('title', 'slug', 'author', 'created_on', 'updated_on',)
+    list_filter = ('created_on', 'updated_on',)
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ('title', 'author',)

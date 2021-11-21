@@ -38,7 +38,7 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
                     {% for category in category_list %}
                     <div class="col">
-                        <a href="{% url 'public_recipes' %}">
+                        <a href="{% url 'public_recipes' category.slug %}">
                         <div class="card shadow">
                             <img src="{{category.category_image.url}}" class="card-img-top" alt="Food category image">
                             <div class="card-body">
@@ -54,7 +54,7 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
                     {% for category in category_list %}
                     <div class="col">
-                        <a href="{% url 'personal_recipes' %}">
+                        <a href="{% url 'personal_recipes' category.slug %}">
                         <div class="card shadow">
                             <img src="{{category.category_image.url}}" class="card-img-top" alt="Food category image">
                             <div class="card-body">

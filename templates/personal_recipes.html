@@ -1,1 +1,11 @@
-Hello world personal
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    {% for recipe in recipe_list %}
+    <p>{{ recipe.title }}</p>
+    {% endfor %}
+</main>
+
+{% endblock %}
