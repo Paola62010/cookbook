@@ -25,7 +25,17 @@ class PublicRecipeList(View):
         )
 
 
-class PersonalRecipeList(generic.ListView):
-    model = Recipe
-    queryset = Recipe.objects.filter(public=False).order_by('-created_on')
-    template_name = 'personal_recipes.html'
+class PersonalRecipeList(View):
+    def get(self, request, slug, *args, **kwargs):
+        category = get_object_or_404(Category, slug=slug)
+        queryset = Recipe.objects.filter(author=request.user, category__slug=slug).order_by('-created_on')
+        context = {
+            'object_list': queryset,
+            'category': category
+            }
+
+        return render(
+            request,
+            'personal_recipes.html',
+            context
+        )
