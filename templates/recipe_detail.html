@@ -3,7 +3,13 @@
 {% block content %}
 
 <main>
-    
+    <p>{{recipe.title}}</p>
+    {% for ingredient in ingredients %}
+    <p>{{ingredient.name}}</p>
+    {% endfor %}
+    {% for step in steps %}
+    <p>{{step.description}}</p>
+    {% endfor %}
 </main>
 
 {% endblock %}

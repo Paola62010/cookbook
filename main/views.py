@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
-from .models import Category, Recipe
+from .models import Category, Ingredient, Recipe, Step, Comment
 
 
 class CategoryList(generic.ListView):
@@ -41,7 +41,19 @@ class PersonalRecipeList(View):
         )
 
 
-class RecipeDetail(generic.ListView):
-    model = Recipe
-    queryset = Recipe.objects.all()
-    template_name = 'recipe_detail.html'
+class RecipeDetail(View):
+    def get(self, request, id, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, id=id)
+        ingredients = Ingredient.objects.filter(recipe=id)
+        steps = Step.objects.filter(recipe=id)
+        context = {
+            'recipe': recipe,
+            'ingredients': ingredients,
+            'steps': steps
+        }
+
+        return render(
+            request,
+            'recipe_detail.html',
+            context
+        )
