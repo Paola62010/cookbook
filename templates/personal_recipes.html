@@ -30,7 +30,7 @@
             {% for recipe in recipe_list %}
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
                 <div class="col">
-                    <a href="#">
+                    <a href="{% url 'recipe_detail' recipe.slug recipe.id %}">
                         <div class="card shadow">
                             <img src="{{recipe.recipe_image.url}}" class="card-img-top" alt="Recipe image">
                             <div class="card-body">

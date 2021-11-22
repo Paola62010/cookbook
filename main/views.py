@@ -39,3 +39,9 @@ class PersonalRecipeList(View):
             'personal_recipes.html',
             context
         )
+
+
+class RecipeDetail(generic.ListView):
+    model = Recipe
+    queryset = Recipe.objects.all()
+    template_name = 'recipe_detail.html'
