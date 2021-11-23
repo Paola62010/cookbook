@@ -3,13 +3,32 @@
 {% block content %}
 
 <main>
-    <p>{{recipe.title}}</p>
-    {% for ingredient in ingredients %}
-    <p>{{ingredient.name}}</p>
-    {% endfor %}
-    {% for step in steps %}
-    <p>{{step.description}}</p>
-    {% endfor %}
+    <section class="container py-5">
+        <h2 class="text-center py-md-5">{{recipe.title}}</h2>
+        <div class="row" id="recipe-detail">
+            <div class="col-lg-6 d-flex flex-column align-items-center light-teal py-5 px-sm-5 mt-5">
+                <div>
+                    <img src="{{recipe.recipe_image.url}}" alt="Recipe image" class="shadow recipe-image">
+                </div>
+                <div class="mt-5">
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        {% for ingredient in ingredients %}
+                        <li class="fst-italic">{{ ingredient.name }} <span> ({{ ingredient.quantity }})</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0 py-5 px-sm-5">
+                <h3>Instructions:</h3>
+                <ol>
+                    {% for step in steps %}
+                    <li class="py-3">{{ step.description }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </section>
 </main>
 
 {% endblock %}

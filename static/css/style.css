@@ -130,3 +130,15 @@ label[for="id_remember"] {
 	border-radius: 0.25rem;
 	background-color: white;
 }
+
+.recipe-image {
+	width: 100%;
+	object-fit: cover;
+	height: 400px;
+}
+
+#recipe-detail {
+	margin-right: 0;
+	margin-left: 0;
+	border-radius: 0.25rem;
+}
