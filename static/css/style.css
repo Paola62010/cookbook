@@ -140,5 +140,12 @@ label[for="id_remember"] {
 #recipe-detail {
 	margin-right: 0;
 	margin-left: 0;
+}
+
+#ingredients {
 	border-radius: 0.25rem;
+}
+
+#recipe-title {
+	color: #fa9138;
 }
