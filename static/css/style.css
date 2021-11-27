@@ -89,15 +89,6 @@ footer i:hover {
 	background-color: #1f95ad;
 }
 
-#plus-sign {
-	font-size: 3rem;
-	color: #fa9138;
-}
-
-#plus-sign:hover {
-	color: #1f95ad;
-}
-
 .log-btn {
 	color: white;
 	background-color: #1f95ad;
@@ -148,4 +139,19 @@ label[for="id_remember"] {
 
 #recipe-title {
 	color: #fa9138;
+}
+
+.icons {
+	font-size: 3rem;
+	color: #fa9138;
+}
+
+.icons:hover {
+	color: #1f95ad;
+}
+
+@media only screen and (max-width: 992px) {
+	.icons {
+		font-size: 1.5rem;
+	}
 }
