@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from .models import Category, Ingredient, Recipe, Step, Comment
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 
 class CategoryList(generic.ListView):
@@ -89,3 +90,14 @@ class RecipeFavourite(View):
             recipe.favourites.add(request.user)
 
         return HttpResponseRedirect(reverse("recipe_detail", args=[slug, id]))
+
+
+class FavouritesList(View):
+    def get(self, request):
+        favourites = User.objects.prefetch_related('recipe_favourites').get(id=request.user.id).recipe_favourites.all()
+
+        return render(
+            request,
+            'favourites.html',
+            {'favourites': favourites}
+        )

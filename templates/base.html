@@ -29,7 +29,7 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li nav-item>
-                    <a href="#" class="nav-link">FAVOURITES</a>
+                    <a href="{% url 'favourites' %}" class="nav-link">FAVOURITES</a>
                 </li>
                 <li nav-item>
                     <a href="{% url 'account_logout' %}" class="nav-link">LOGOUT</a>
