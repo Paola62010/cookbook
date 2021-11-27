@@ -50,12 +50,16 @@ class RecipeDetail(View):
         liked = False
         if recipe.likes.filter(id=request.user.id).exists():
             liked = True
+        favourite = False
+        if recipe.favourites.filter(id=request.user.id).exists():
+            favourite = True
 
         context = {
             'recipe': recipe,
             'ingredients': ingredients,
             'steps': steps,
-            'liked': liked
+            'liked': liked,
+            'favourite': favourite
         }
 
         return render(
@@ -72,5 +76,16 @@ class RecipeLike(View):
             recipe.likes.remove(request.user)
         else:
             recipe.likes.add(request.user)
+
+        return HttpResponseRedirect(reverse("recipe_detail", args=[slug, id]))
+
+
+class RecipeFavourite(View):
+    def post(self, request, id, slug):
+        recipe = get_object_or_404(Recipe, id=id)
+        if recipe.favourites.filter(id=request.user.id).exists():
+            recipe.favourites.remove(request.user)
+        else:
+            recipe.favourites.add(request.user)
 
         return HttpResponseRedirect(reverse("recipe_detail", args=[slug, id]))

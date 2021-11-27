@@ -150,8 +150,18 @@ label[for="id_remember"] {
 	color: #1f95ad;
 }
 
+.form-buttons {
+	background-color: transparent;
+	border: none;
+	color: #fa9138;
+	font-size: 3rem;
+}
+
 @media only screen and (max-width: 992px) {
 	.icons {
+		font-size: 1.5rem;
+	}
+	.form-buttons {
 		font-size: 1.5rem;
 	}
 }
