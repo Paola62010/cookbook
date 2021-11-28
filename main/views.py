@@ -1,8 +1,13 @@
+from django.db import models, transaction
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from .models import Category, Ingredient, Recipe, Step, Comment
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.forms import inlineformset_factory
+from .forms import RecipeForm, IngredientInlineFormset, StepInlineFormset
+from django.views.generic.edit import CreateView, UpdateView
 
 
 class CategoryList(generic.ListView):
@@ -101,3 +106,38 @@ class FavouritesList(View):
             'favourites.html',
             {'favourites': favourites}
         )
+
+
+class CreateRecipe(CreateView):
+    model = Recipe
+    template_name = 'create_recipe.html'
+    form_class = RecipeForm
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(CreateRecipe, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = IngredientInlineFormset(self.request.POST)
+            data['steps'] = StepInlineFormset(self.request.POST)
+        else:
+            data['ingredients'] = IngredientInlineFormset()
+            data['steps'] = StepInlineFormset()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        ingredients = context['ingredients']
+        steps = context['steps']
+        with transaction.atomic():
+            form.instance.author = self.request.user
+            self.object = form.save()
+            if ingredients.is_valid():
+                ingredients.instance = self.object
+                ingredients.save()
+            if steps.is_valid():
+                steps.instance = self.object
+                steps.save()
+        return super(CreateRecipe, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('home')

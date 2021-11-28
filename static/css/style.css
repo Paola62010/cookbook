@@ -76,6 +76,10 @@ footer i:hover {
 	border-bottom-right-radius: 0.25rem;
 }
 
+#create-form-card:hover {
+	background-color: #1f95ad;
+}
+
 .card-body:hover {
 	background-color: #fa9138;
 }
@@ -155,6 +159,10 @@ label[for="id_remember"] {
 	border: none;
 	color: #fa9138;
 	font-size: 3rem;
+}
+
+caption {
+	caption-side: top;
 }
 
 @media only screen and (max-width: 992px) {
