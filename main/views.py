@@ -117,8 +117,8 @@ class CreateRecipe(CreateView):
     def get_context_data(self, **kwargs):
         data = super(CreateRecipe, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['ingredients'] = IngredientInlineFormset(self.request.POST)
-            data['steps'] = StepInlineFormset(self.request.POST)
+            data['ingredients'] = IngredientInlineFormset(self.request.POST, self.request.FILES)
+            data['steps'] = StepInlineFormset(self.request.POST, self.request.FILES)
         else:
             data['ingredients'] = IngredientInlineFormset()
             data['steps'] = StepInlineFormset()
