@@ -3,11 +3,14 @@
 {% block content %}
 
 <main>
-    <div class="container mt-4">
-        <form method="post" enctype="multipart/form-data">
+    <section>
+    <h1 class="text-center py-5 my-md-5">Create a new Recipe</h1>
+    <div class="container-md py-5 px-md-5 mb-5 light-teal recipe-container">
+        <form method="post" enctype="multipart/form-data" id="recipe-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <table>
+            <div class="table-responsive">
+            <table class="table">
                 <caption>Ingredients</caption>
                 {{ ingredients.management_form }}
 
@@ -16,7 +19,7 @@
                     <thead>
                     <tr>
                         {% for field in form.visible_fields %}
-                            <th>{{ field.label|capfirst }}</th>
+                            <th scope="col">{{ field.label|capfirst }}</th>
                         {% endfor %}
                     </tr>
                     </thead>
@@ -37,7 +40,9 @@
                 </tr>
             {% endfor %}
         </table>
-        <table>
+        </div>
+        <div class="table-responsive">
+        <table class="table">
             <caption>Steps</caption>
             {{ steps.management_form }}
 
@@ -46,7 +51,7 @@
                 <thead>
                 <tr>
                     {% for field in form.visible_fields %}
-                        <th>{{ field.label|capfirst }}</th>
+                        <th scope="col">{{ field.label|capfirst }}</th>
                     {% endfor %}
                 </tr>
                 </thead>
@@ -67,10 +72,12 @@
             </tr>
         {% endfor %}
     </table>
-        <input type="submit" value="Save"/>
+    </div>
+        <input id="save-btn" type="submit" value="Save"/>
             </table>
         </form>
     </div>
+</section>
 </main>
 
 {% endblock %}

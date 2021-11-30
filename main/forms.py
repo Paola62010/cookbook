@@ -39,11 +39,13 @@ IngredientInlineFormset = inlineformset_factory(
     Ingredient,
     form=IngredientForm,
     extra=3,
-    can_delete=True)
+    can_delete=True,
+    )
 
 StepInlineFormset = inlineformset_factory(
     Recipe,
     Step,
     form=StepForm,
     extra=1,
-    can_delete=True)
+    can_delete=True
+    )

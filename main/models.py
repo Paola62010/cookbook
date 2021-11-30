@@ -26,7 +26,7 @@ class Recipe(models.Model):
     servings = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    recipe_image = models.ImageField(upload_to="recipes", blank=True)
+    recipe_image = models.ImageField(upload_to="recipes", blank=False)
     public = models.BooleanField(default=False)
     favourites = models.ManyToManyField(User, blank=True, related_name="recipe_favourites")
     likes = models.ManyToManyField(User, related_name="recipe_likes", blank=True)
