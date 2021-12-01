@@ -141,3 +141,38 @@ class CreateRecipe(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+
+
+class UpdateRecipe(UpdateView):
+    model = Recipe
+    template_name = 'update_recipe.html'
+    form_class = RecipeForm
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(UpdateRecipe, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = IngredientInlineFormset(self.request.POST, self.request.FILES, instance=self.object)
+            data['steps'] = StepInlineFormset(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            data['ingredients'] = IngredientInlineFormset(instance=self.object)
+            data['steps'] = StepInlineFormset(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        ingredients = context['ingredients']
+        steps = context['steps']
+        with transaction.atomic():
+            form.instance.author = self.request.user
+            self.object = form.save()
+            if ingredients.is_valid():
+                ingredients.instance = self.object
+                ingredients.save()
+            if steps.is_valid():
+                steps.instance = self.object
+                steps.save()
+        return super(UpdateRecipe, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
