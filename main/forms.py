@@ -34,18 +34,29 @@ class StepForm(forms.ModelForm):
         )
 
 
+# class AddIngredientOrStep(forms.models.BaseInlineFormSet):
+#     def clean(self):
+
+#         if self.has_changed() is False:
+#             raise forms.ValidationError('Please add at least one entry.')
+
+
 IngredientInlineFormset = inlineformset_factory(
     Recipe,
     Ingredient,
     form=IngredientForm,
-    extra=3,
+    extra=0,
     can_delete=True,
+    min_num=1,
+    validate_min=True
     )
 
 StepInlineFormset = inlineformset_factory(
     Recipe,
     Step,
     form=StepForm,
-    extra=1,
-    can_delete=True
+    extra=0,
+    can_delete=True,
+    min_num=1,
+    validate_min=True
     )

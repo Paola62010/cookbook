@@ -1,5 +1,5 @@
 from django.db import models, transaction
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from .models import Category, Ingredient, Recipe, Step, Comment
 from django.http import HttpResponseRedirect
@@ -130,13 +130,16 @@ class CreateRecipe(CreateView):
         steps = context['steps']
         with transaction.atomic():
             form.instance.author = self.request.user
-            self.object = form.save()
-            if ingredients.is_valid():
+            if ingredients.is_valid() and steps.is_valid():
+                self.object = form.save()
                 ingredients.instance = self.object
-                ingredients.save()
-            if steps.is_valid():
                 steps.instance = self.object
+                ingredients.save()
                 steps.save()
+            else:
+                context.update({'ingredients': ingredients, 'steps': steps})
+                return self.render_to_response(context)
+
         return super(CreateRecipe, self).form_valid(form)
 
     def get_success_url(self):
@@ -165,14 +168,17 @@ class UpdateRecipe(UpdateView):
         steps = context['steps']
         with transaction.atomic():
             form.instance.author = self.request.user
-            self.object = form.save()
-            if ingredients.is_valid():
+            if ingredients.is_valid() and steps.is_valid():
+                self.object = form.save()
                 ingredients.instance = self.object
-                ingredients.save()
-            if steps.is_valid():
                 steps.instance = self.object
+                ingredients.save()
                 steps.save()
-        return super(UpdateRecipe, self).form_valid(form)
+            else:
+                context.update({'ingredients': ingredients, 'steps': steps})
+                return self.render_to_response(context)
+
+        return super(CreateRecipe, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('home')
