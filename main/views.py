@@ -5,8 +5,7 @@ from .models import Category, Ingredient, Recipe, Step, Comment
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from django.forms import inlineformset_factory
-from .forms import RecipeForm, IngredientInlineFormset, StepInlineFormset
+from .forms import RecipeForm, UpdateRecipeForm
 from django.views.generic.edit import CreateView, UpdateView
 
 
@@ -112,73 +111,31 @@ class CreateRecipe(CreateView):
     model = Recipe
     template_name = 'create_recipe.html'
     form_class = RecipeForm
-    success_url = None
-
-    def get_context_data(self, **kwargs):
-        data = super(CreateRecipe, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['ingredients'] = IngredientInlineFormset(self.request.POST, self.request.FILES)
-            data['steps'] = StepInlineFormset(self.request.POST, self.request.FILES)
-        else:
-            data['ingredients'] = IngredientInlineFormset()
-            data['steps'] = StepInlineFormset()
-        return data
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        ingredients = context['ingredients']
-        steps = context['steps']
-        with transaction.atomic():
-            form.instance.author = self.request.user
-            if ingredients.is_valid() and steps.is_valid():
-                self.object = form.save()
-                ingredients.instance = self.object
-                steps.instance = self.object
-                ingredients.save()
-                steps.save()
-            else:
-                context.update({'ingredients': ingredients, 'steps': steps})
-                return self.render_to_response(context)
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
-        return super(CreateRecipe, self).form_valid(form)
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(CreateRecipe, self).get_form_kwargs(*args, **kwargs)
+        kwargs['author'] = self.request.user
+        return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
 class UpdateRecipe(UpdateView):
     model = Recipe
     template_name = 'update_recipe.html'
-    form_class = RecipeForm
-    success_url = None
-
-    def get_context_data(self, **kwargs):
-        data = super(UpdateRecipe, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['ingredients'] = IngredientInlineFormset(self.request.POST, self.request.FILES, instance=self.object)
-            data['steps'] = StepInlineFormset(self.request.POST, self.request.FILES, instance=self.object)
-        else:
-            data['ingredients'] = IngredientInlineFormset(instance=self.object)
-            data['steps'] = StepInlineFormset(instance=self.object)
-        return data
+    form_class = UpdateRecipeForm
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        ingredients = context['ingredients']
-        steps = context['steps']
-        with transaction.atomic():
-            form.instance.author = self.request.user
-            if ingredients.is_valid() and steps.is_valid():
-                self.object = form.save()
-                ingredients.instance = self.object
-                steps.instance = self.object
-                ingredients.save()
-                steps.save()
-            else:
-                context.update({'ingredients': ingredients, 'steps': steps})
-                return self.render_to_response(context)
-
-        return super(CreateRecipe, self).form_valid(form)
+        self.object = form.save(commit=False)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})

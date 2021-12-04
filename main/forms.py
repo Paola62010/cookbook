@@ -16,6 +16,29 @@ class RecipeForm(forms.ModelForm):
             'public'
         )
 
+    def __init__(self, *args, **kwargs):
+        self.author = kwargs.pop('author')
+        super(RecipeForm, self).__init__(*args, **kwargs)
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Recipe.objects.filter(author=self.author, title=title).exists():
+            raise forms.ValidationError("You have already written a recipe with same title.")
+        return title
+
+
+class UpdateRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = (
+            'title',
+            'slug',
+            'category',
+            'servings',
+            'recipe_image',
+            'public'
+        )
+
 
 class IngredientForm(forms.ModelForm):
     class Meta:
@@ -32,31 +55,3 @@ class StepForm(forms.ModelForm):
         fields = (
             'description',
         )
-
-
-# class AddIngredientOrStep(forms.models.BaseInlineFormSet):
-#     def clean(self):
-
-#         if self.has_changed() is False:
-#             raise forms.ValidationError('Please add at least one entry.')
-
-
-IngredientInlineFormset = inlineformset_factory(
-    Recipe,
-    Ingredient,
-    form=IngredientForm,
-    extra=0,
-    can_delete=True,
-    min_num=1,
-    validate_min=True
-    )
-
-StepInlineFormset = inlineformset_factory(
-    Recipe,
-    Step,
-    form=StepForm,
-    extra=0,
-    can_delete=True,
-    min_num=1,
-    validate_min=True
-    )
