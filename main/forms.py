@@ -1,7 +1,8 @@
 from django.db.models import fields
 from django import forms
-from django.forms import inlineformset_factory
+from django.forms import formset_factory
 from .models import Recipe, Ingredient, Step, Comment
+from extra_views import InlineFormSetFactory
 
 
 class RecipeForm(forms.ModelForm):
@@ -48,6 +49,10 @@ class IngredientForm(forms.ModelForm):
             'quantity'
         )
 
+    def __init__(self, *args, **kwargs):
+        self.recipe = kwargs.pop('recipe')
+        super(IngredientForm, self).__init__(*args, **kwargs)
+
 
 class StepForm(forms.ModelForm):
     class Meta:
@@ -55,3 +60,17 @@ class StepForm(forms.ModelForm):
         fields = (
             'description',
         )
+
+
+# IngredientFormSet = formset_factory(IngredientForm, extra=10)
+
+# StepFormSet = formset_factory(StepForm, extra=10)
+
+class IngedientInline(InlineFormSetFactory):
+    model = Ingredient
+    fields = ['name', 'quantity']
+
+
+class StepInline(InlineFormSetFactory):
+    model = Step
+    fields = ['description']
