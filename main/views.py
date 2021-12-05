@@ -7,7 +7,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline
 from django.views.generic.edit import CreateView, UpdateView
-from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory
+from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, SuccessMessageMixin
+from django.contrib import messages
 
 
 class CategoryList(generic.ListView):
@@ -162,10 +163,11 @@ class CreateRecipe(CreateWithInlinesView):
         return kwargs
 
     def get_success_url(self):
+        messages.success(self.request, 'Recipe created successfully!')
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
-class UpdateRecipe(UpdateWithInlinesView):
+class UpdateRecipe(SuccessMessageMixin, UpdateWithInlinesView):
     model = Recipe
     template_name = 'update_recipe.html'
     form_class = UpdateRecipeForm
@@ -179,6 +181,7 @@ class UpdateRecipe(UpdateWithInlinesView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
+        messages.success(self.request, 'Recipe updated successfully!')
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 

@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from os import path
 import dj_database_url
+from django.contrib.messages import constants as messages
 if path.exists("env.py"):
     import env
 
@@ -50,7 +51,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
-    'crispy_forms',
     'extra_views',
     'main',
 ]
@@ -60,7 +60,13 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
