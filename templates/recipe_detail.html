@@ -8,7 +8,7 @@
     <section class="container py-5">
         <div class="text-end mb-4">
             <a href="{% url 'update_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-pencil-square"></i></a>
-            <a href="#" class="m-3"><i class="icons bi bi-trash"></i></a>
+            <a href="{% url 'delete_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-trash"></i></a>
         </div>
         <h2 class="text-center py-md-5 fw-bold" id="recipe-title">{{recipe.title}}</h2>
         <div class="row" id="recipe-detail">

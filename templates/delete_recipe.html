@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    <div class="container my-5 py-5">
+        <form method="post" id="recipe-form">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header" id="create-header">
+                    <h3 class="text-center py-3">Delete Recipe</h3>
+                </div>
+                <div class="card-body ps-md-5" id="create-body">
+                    <p class="text-center py-5">Are you sure you want to delete recipe: "{{ recipe.title }}"?</p>
+                    <p class="text-center pb-5">This action can't be undone.</p>
+                </div>
+            </div>
+            <div class="mt-3 mb-5">
+                <button type="submit" id="submit-recipe" class="px-5 btn btn-info">Confirm</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+{% endblock %}

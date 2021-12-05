@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, SuccessMessageMixin
 from django.contrib import messages
 
@@ -109,40 +109,6 @@ class FavouritesList(View):
         )
 
 
-# class CreateRecipe(CreateView):
-#     model = Recipe
-#     template_name = 'create_recipe.html'
-#     form_class = RecipeForm
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.author = self.request.user
-#         self.object.save()
-#         return HttpResponseRedirect(self.get_success_url())
-
-#     def get_form_kwargs(self, *args, **kwargs):
-#         kwargs = super(CreateRecipe, self).get_form_kwargs(*args, **kwargs)
-#         kwargs['author'] = self.request.user
-#         return kwargs
-
-#     def get_success_url(self):
-#         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
-
-
-# class UpdateRecipe(UpdateView):
-#     model = Recipe
-#     template_name = 'update_recipe.html'
-#     form_class = UpdateRecipeForm
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.save()
-#         return HttpResponseRedirect(self.get_success_url())
-
-#     def get_success_url(self):
-#         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
-
-
 class CreateRecipe(CreateWithInlinesView):
     model = Recipe
     template_name = 'create_recipe.html'
@@ -185,4 +151,16 @@ class UpdateRecipe(SuccessMessageMixin, UpdateWithInlinesView):
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
+class DeleteRecipe(DeleteView):
+    model = Recipe
+    template_name = 'delete_recipe.html'
 
+    def get_object(self):
+        id = self.kwargs.get('id')
+        return get_object_or_404(Recipe, id=id)
+
+    def get_success_url(self):
+        category = self.object.category
+        slug = category.slug
+        messages.success(self.request, 'Recipe deleted successfully!')
+        return reverse_lazy('personal_recipes', kwargs={'slug': slug})
