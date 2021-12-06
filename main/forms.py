@@ -62,10 +62,6 @@ class StepForm(forms.ModelForm):
         )
 
 
-# IngredientFormSet = formset_factory(IngredientForm, extra=10)
-
-# StepFormSet = formset_factory(StepForm, extra=10)
-
 class IngedientInline(InlineFormSetFactory):
     model = Ingredient
     fields = ['name', 'quantity']
@@ -74,3 +70,11 @@ class IngedientInline(InlineFormSetFactory):
 class StepInline(InlineFormSetFactory):
     model = Step
     fields = ['description']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = (
+            'body',
+        )

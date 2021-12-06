@@ -5,7 +5,7 @@ from .models import Category, Ingredient, Recipe, Step, Comment
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline
+from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline, CommentForm
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, SuccessMessageMixin
 from django.contrib import messages
@@ -52,6 +52,7 @@ class PersonalRecipeList(View):
 class RecipeDetail(View):
     def get(self, request, id, *args, **kwargs):
         recipe = get_object_or_404(Recipe, id=id)
+        comments = recipe.comments.all().order_by('-created_on')
         ingredients = Ingredient.objects.filter(recipe=id)
         steps = Step.objects.filter(recipe=id)
         liked = False
@@ -66,7 +67,47 @@ class RecipeDetail(View):
             'ingredients': ingredients,
             'steps': steps,
             'liked': liked,
-            'favourite': favourite
+            'favourite': favourite,
+            'comments': comments,
+            'comment_form': CommentForm()
+        }
+
+        return render(
+            request,
+            'recipe_detail.html',
+            context
+        )
+
+    def post(self, request, id, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, id=id)
+        comments = recipe.comments.all().order_by('-created_on')
+        ingredients = Ingredient.objects.filter(recipe=id)
+        steps = Step.objects.filter(recipe=id)
+        liked = False
+        if recipe.likes.filter(id=request.user.id).exists():
+            liked = True
+        favourite = False
+        if recipe.favourites.filter(id=request.user.id).exists():
+            favourite = True
+
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            comment_form.instance.author = request.user
+            comment = comment_form.save(commit=False)
+            comment.recipe = recipe
+            comment.save()
+        else:
+            comment_form = CommentForm()
+
+        context = {
+            'recipe': recipe,
+            'ingredients': ingredients,
+            'steps': steps,
+            'liked': liked,
+            'favourite': favourite,
+            'comments': comments,
+            'comment_form': CommentForm()
         }
 
         return render(
