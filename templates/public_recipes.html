@@ -4,9 +4,11 @@
 
 <main>
     <section class="container py-5 text-center">
+        {% if user.is_authenticated %}
         <div class="text-end">
             <a href="{% url 'create_recipe' %}"><i class="icons bi bi-plus-circle-fill" title="Create a new recipe!"></i></a>
         </div>
+        {% endif %}
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="mb-5">{{category}}</h1>
