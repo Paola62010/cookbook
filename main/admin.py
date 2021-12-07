@@ -31,3 +31,10 @@ class RecipeAdmin(admin.ModelAdmin):
     list_filter = ('created_on', 'updated_on',)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title', 'author',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'recipe', 'body', 'created_on',)
+    list_filter = ('created_on',)
+    search_fields = ('recipe', 'author',)
