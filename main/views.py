@@ -207,3 +207,35 @@ class DeleteRecipe(DeleteView):
         slug = category.slug
         messages.success(self.request, 'Recipe deleted successfully!')
         return reverse_lazy('personal_recipes', kwargs={'slug': slug})
+
+
+class SearchResults(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            query = self.request.GET.get('q')
+            all_public = Recipe.objects.filter(title__icontains=query, public=True).exclude(author=self.request.user)
+            from_personal = Recipe.objects.filter(title__icontains=query, author=self.request.user)
+            context = {
+                'all_public': all_public,
+                'from_personal': from_personal,
+                'query': query
+                }
+
+            return render(
+                request,
+                'search_results.html',
+                context
+            )
+        else:
+            query = self.request.GET.get('q')
+            all_public2 = Recipe.objects.filter(title__icontains=query, public=True)
+            context = {
+                'all_public2': all_public2,
+                'query': query
+                }
+
+            return render(
+                request,
+                'search_results.html',
+                context
+            )

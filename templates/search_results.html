@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    {% if user.is_authenticated %}
+    <h2>You have searched for:</h2>
+    <p>{{ query }}</p>
+    <div>
+        <h3>From your personal recipes:</h3>
+        {% if from_personal|length == 0 %}
+        <p>You have no personal recipes matching your search.</p>
+        {% else %}
+        {% for recipe in from_personal %}
+        {{ recipe.title }}
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        <h3>From the community:</h3>
+        {% if all_public|length == 0 %}
+        <p>There are no recipes from our community that match your search.</p>
+        {% else %}
+        {% for recipe in all_public %}
+        {{ recipe.title }}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% else %}
+    <h2>You have searched for:</h2>
+    <p>{{ query }}</p>
+    <div>
+        <h3>From the community:</h3>
+        {% if all_public2|length == 0 %}
+        <p>There are no recipes from our community that match your search.</p>
+        {% else %}
+        {% for recipe in all_public2 %}
+        {{ recipe.title }}
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+</main>
+
+{% endblock %}
