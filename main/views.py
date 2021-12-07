@@ -133,8 +133,10 @@ class RecipeFavourite(View):
         recipe = get_object_or_404(Recipe, id=id)
         if recipe.favourites.filter(id=request.user.id).exists():
             recipe.favourites.remove(request.user)
+            messages.info(self.request, 'This recipe has been removed from your favourites')
         else:
             recipe.favourites.add(request.user)
+            messages.success(self.request, 'This recipe has been added to your favourites')
 
         return HttpResponseRedirect(reverse("recipe_detail", args=[slug, id]))
 
