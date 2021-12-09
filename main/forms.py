@@ -65,11 +65,17 @@ class StepForm(forms.ModelForm):
 class IngedientInline(InlineFormSetFactory):
     model = Ingredient
     fields = ['name', 'quantity']
+    prefix = 'ingredient-form'
+    factory_kwargs = {'extra': 1, 'max_num': None,
+                      'can_order': False, 'can_delete': True}
 
 
 class StepInline(InlineFormSetFactory):
     model = Step
     fields = ['description']
+    prefix = 'step-form'
+    factory_kwargs = {'extra': 1, 'max_num': None,
+                      'can_order': False, 'can_delete': True}
 
 
 class CommentForm(forms.ModelForm):

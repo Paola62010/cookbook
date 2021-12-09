@@ -11,11 +11,21 @@
                     <h3 class="text-center py-3">Create a new Recipe</h3>
                 </div>
                 <div class="card-body ps-md-5" id="create-body">
-                    {{ form.non_form_errors }}
+                    <!-- {{ form.non_form_errors }} -->
                     {{ form.as_p }}
 
                     {% for formset in inlines %}
-                    {{ formset }}
+                    {{ formset.management_form }}
+
+                    <div id="{{ formset.prefix }}">
+                    
+                    {% for subform in formset.forms %}
+                    
+                    {{ subform }}
+                    
+                    {% endfor %}
+                    
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -25,5 +35,18 @@
         </form>
     </div>
 </main>
-
+{% block extra_footer_script %}
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script src="/static/js/jquery.formset.js"></script>
+<script type="text/javascript">
+       $(function() {
+           {% for formset in inlines %}
+           $('div#{{ formset.prefix }}').formset({
+               prefix: '{{ formset.prefix }}',
+               formCssClass: 'dynamic-formset{{ forloop.counter }}'
+           });
+           {% endfor %}
+       })
+   </script>
+{% endblock %}
 {% endblock %}
