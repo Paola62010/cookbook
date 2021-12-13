@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.base import Model
 from django.db.models.fields import CharField
+from autoslug import AutoSlugField
 
 
 class Category(models.Model):
@@ -20,7 +21,7 @@ class Category(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=150)
+    slug = AutoSlugField(populate_from='title')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="recipe_posts")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipe_posts")
     servings = models.IntegerField()

@@ -10,7 +10,6 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = (
             'title',
-            'slug',
             'category',
             'servings',
             'recipe_image',
@@ -33,7 +32,6 @@ class UpdateRecipeForm(forms.ModelForm):
         model = Recipe
         fields = (
             'title',
-            'slug',
             'category',
             'servings',
             'recipe_image',
