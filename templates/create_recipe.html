@@ -16,17 +16,16 @@
 
                     {% for formset in inlines %}
                     {{ formset.management_form }}
+                    
                     <h3 class="my-3">{{ formset.prefix }}</h3>
-
-                    <div id="{{ formset.prefix }}">
                     
                     {% for subform in formset.forms %}
-                    
+                    <div id="{{ formset.prefix }}">
+                    {% if subform.instance.pk %}{{ subform.DELETE }}{% endif %}
                     {{ subform }}
-                    
+                    </div>
                     {% endfor %}
                     
-                    </div>
                     {% endfor %}
                 </div>
             </div>

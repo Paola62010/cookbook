@@ -97,6 +97,7 @@ class RecipeDetail(View):
             comment = comment_form.save(commit=False)
             comment.recipe = recipe
             comment.save()
+            messages.success(self.request, 'Your comment has been added')
         else:
             comment_form = CommentForm()
 
