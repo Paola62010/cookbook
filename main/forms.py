@@ -64,7 +64,7 @@ class IngedientInline(InlineFormSetFactory):
     model = Ingredient
     fields = ['name', 'quantity']
     prefix = 'Ingredients'
-    factory_kwargs = {'extra': 1, 'max_num': None,
+    factory_kwargs = {'extra': 1, 'max_num': 25,
                       'can_order': False, 'can_delete': True}
 
 
@@ -72,7 +72,7 @@ class StepInline(InlineFormSetFactory):
     model = Step
     fields = ['description']
     prefix = 'Steps'
-    factory_kwargs = {'extra': 1, 'max_num': None,
+    factory_kwargs = {'extra': 1, 'max_num': 25,
                       'can_order': False, 'can_delete': True}
 
 
