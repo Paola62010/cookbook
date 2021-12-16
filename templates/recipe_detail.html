@@ -7,8 +7,8 @@
 
     <section class="container py-lg-5">
         <div class="text-end mb-4">
-            <a href="{% url 'update_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-pencil-square"></i></a>
-            <a href="{% url 'delete_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-trash"></i></a>
+            <a href="{% url 'update_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-pencil-square" title="Update Recipe"></i></a>
+            <a href="{% url 'delete_recipe' recipe.id %}" class="m-3"><i class="icons bi bi-trash" title="Delete Recipe"></i></a>
         </div>
         <h2 class="text-center py-md-5 fw-bold" id="recipe-title">{{recipe.title}}</h2>
         <h4 class="text-center mt-3 mt-md-0">You created this recipe on: {{ recipe.created_on|date:"M d, Y" }}</h4>
@@ -81,11 +81,11 @@
             {% csrf_token %}
             {% if liked %}
             <button class="form-buttons" type="submit" name="recipe_id" value="{{ recipe.id }}">
-                <i class="bi bi-heart-fill"></i>
+                <i class="bi bi-heart-fill" title="Like"></i>
             </button>
             {% else %}
             <button class="form-buttons" type="submit" name="recipe_id" value="{{ recipe.id }}">
-                <i class="bi bi-heart"></i>
+                <i class="bi bi-heart" title="Like"></i>
             </button>
             {% endif %}
         </form>
@@ -94,11 +94,11 @@
             {% csrf_token %}
             {% if favourite %}
             <button class="form-buttons" type="submit" name="recipe_id" value="{{ recipe.id }}">
-                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill" title="Favourite"></i>
             </button>
             {% else %}
             <button class="form-buttons" type="submit" name="recipe_id" value="{{ recipe.id }}">
-                <i class="bi bi-star"></i>
+                <i class="bi bi-star" title="Favourite"></i>
             </button>
             {% endif %}
         </form>
