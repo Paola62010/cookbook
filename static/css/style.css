@@ -7,7 +7,7 @@ html {
 
 body {
 	font-family: Roboto, sans-serif;
-	font-size: 1.3rem;
+	font-size: 1rem;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -31,7 +31,7 @@ a {
 
 #logo {
 	font-family: Comfortaa, sans-serif;
-	font-size: 2.3rem;
+	font-size: 2rem;
 }
 
 .orange {
@@ -133,7 +133,7 @@ label[for="id_remember"] {
 .recipe-image {
 	width: 100%;
 	object-fit: cover;
-	height: 400px;
+	height: 350px;
 }
 
 #recipe-detail {
@@ -150,7 +150,7 @@ label[for="id_remember"] {
 }
 
 .icons {
-	font-size: 3rem;
+	font-size: 2rem;
 	color: #fa9138;
 }
 
@@ -228,11 +228,11 @@ input[type=file]::file-selector-button:hover {
 
 .icons2 {
 	color: #1f95ad;
-	font-size: 2rem;
+	font-size: 1.7rem;
 }
 
 .form-buttons {
-	font-size: 3rem;
+	font-size: 2rem;
 	background-color: transparent;
 	border: none;
 	color: #fa9138;
@@ -251,7 +251,8 @@ input[type=file]::file-selector-button:hover {
 	color: #fa9138;
 }
 
-.dynamic-formset1 {
+.dynamic-formset1,
+.dynamic-formset2 {
 	margin: 1.5rem 0;
 }
 
@@ -259,7 +260,7 @@ input[type=file]::file-selector-button:hover {
 	.icons {
 		font-size: 1.5rem;
 	}
-	.icons {
+	.icons2 {
 		font-size: 1rem;
 	}
 	.form-buttons {
