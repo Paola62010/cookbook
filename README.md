@@ -105,7 +105,7 @@ This page is only available to authenticated users. Recipe creators are redirect
 
 ### Favourites Page
 
-This page is only available to authenticated users. This page contains two sections. The top sections includes a title and the search bar. The bottom section contains a list of recipes, organised in a grid of cards. The recipes listed here are the recipes the user has marked as favourite by clicking on the star in the recipe_detail page.  
+This page is only available to authenticated users. This page contains two sections. The top sections includes a title and the search bar. The bottom section contains a list of recipes, organised in a grid of cards. The recipes listed here are the recipes the user has marked as favourite by clicking on the star icon in the recipe_detail page.  
 
 ### Search Results Page
 
@@ -120,6 +120,115 @@ Users that are authenticated have an additional feature. The results are divided
 ### Features to Implement in future
 
 - I would like to add the possibility for authenticated users to update their profile, maybe add a picture and a bio. 
-- I would also like to add the possibility for users to view another user profile, including the recipes created by that user.
+- I would also like to add the possibility for users to view another user's profile, including the recipes created by that user.
+- It would be nice to make it possible to follow a creator so that the user is notified when that creator posts a new recipe. 
 
 ## Technologies Used
+
+### Languages
+
+- [HTML5](https://en.wikipedia.org/wiki/HTML5)
+- [CSS](https://en.wikipedia.org/wiki/CSS)
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+- [Python](https://www.python.org/)
+
+### Database
+
+- [Heroku Postgres](https://www.heroku.com/postgres) - I have used Postgres both during development and for production.
+
+### Storage
+
+- [Cloudinary](https://cloudinary.com/) - I have used Cloudinary to store media and static files.
+
+### Frameworks
+
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/) - I have used Bootstrap 5.0.2 which helped me design and build a responsive website.
+- [Django](https://www.djangoproject.com/) - I have used Django to build the project. 
+
+### Libraries, tools and online resources used
+
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) - Used extensively during development to check responsiveness.
+- [Dj-database-url](https://pypi.org/project/dj-database-url/) - A utility to help you load your database into your dictionary from the DATABASE_URL environment variable. 
+- [Pyscopg2](https://pypi.org/project/psycopg2/) - this was used as a PostgreSQL database adapter for Python.
+- [Django Allauth](https://django-allauth.readthedocs.io/en/latest/overview.html) - Used to handle authentication process.
+- [Google Fonts](https://fonts.google.com/) - Used for the website fonts.
+- [Gunicorn](https://gunicorn.org/) - Used to deploy the project to Heroku.
+- [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) - Jinja templating language was used to display backend data in the templates. This has been used both in the HTML and JavaScript.
+- [Django-autoslug](https://django-autoslug.readthedocs.io/en/latest/) - a Django library that provides an improved slug field which can automatically populate itself from another field. 
+- [Django-extra-views](https://django-extra-views.readthedocs.io/en/latest/) - a Django package that introduced additional class-based views to complement those provide by Django itself. I have used this to handle inline formsets.
+- [Django-dynamic-formset](https://github.com/elo80ka/django-dynamic-formset) - jQuery plugin to dynamically add more inline formsets.
+- [JQuery](https://jquery.com/) - This was required for the django-dynamic-formset plugin.
+- [Pillow](https://pillow.readthedocs.io/en/stable/) - a Python Imaging Library, it was used to help processing image files to store in the database.
+- [favicon.io](https://favicon.io/) - Favicon generator.
+- [TechSini](http://techsini.com/multi-mockup/) - multidevice mockup generator. I have used this to generate the preview image of the website.
+- [Visual Studio Code](https://code.visualstudio.com/) - IDE used for code editing.
+- [Heroku](https://www.heroku.com/home) - Used to deploy the app.
+- [Adobe XD](https://www.adobe.com/products/xd.html) - Used to create the wireframes. 
+
+## Testing
+
+Testing information can be found in [TESTING.md](TESTING.md) file.
+
+## Deployment
+
+### Cloning the repository
+
+To clone the repository, follow these steps: 
+
+1. Log into Github and locate the repository for this project: [Paola62010/cookbook](https://github.com/Paola62010/cookbook)
+2. Above the list of files, click on _Code_, a dropdown menu is presented with different options.
+3. In the Clone with HTTPs section, copy the clone URL for the repository.
+4. In your local IDE open the terminal.
+5. Change the current working directory to the location where you want the cloned directory to be. 
+6. Type _git clone_, and then paste the URL copied earlier (step 3).
+7. Press Enter to create your local clone.
+
+Additional information on how to clone a Github repository can be found [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+
+### Environment variables and ALLOWED_HOSTS
+
+Create an <span>env.py</span> file. The following variables are required for this project:
+- SECRET_KEY: any key you like.
+- CLOUDINARY_URL: Copy your CLOUDINARY_URL e.g. API Environment Variable from Cloudinary Dashboard (a free account with [Cloudinary](https://cloudinary.com/) is required).
+- DATABASE_URL: This is the value of DATABASE_URL in Heroku (step 5 of the next section), located in the Settings Tab, in Config Vars.
+
+In <span>settings.py</span> make sure to correct the ALLOWED_HOSTS values to use your localhost and Heroku app name.
+
+### Deploying to Heroku
+
+To deploy to Heroku follow these steps: 
+
+1. Log into [Heroku](https://dashboard.heroku.com/apps) and locate the "New" button, on the top right end side of your dashboard page. 
+2. Click on "Create new app", select your region and pick a name for your project. 
+3. On top of the next page there is a navigation bar, select "Settings". 
+4. In "Settings" add buildpack Python.
+5. Add Database to App Resources. This is located in the Resources Tab, Add-ons, search and add e.g. "Heroku Postgres". 
+6. In the Settings Tab, in Config Vars, make sure you have the DATABASE_URL added with the previous step and to add the other variables: SECRET_KEY and CLOUDINARY_URL. 
+7. On the navigation bar on top of the page, select now "Deploy".
+8. Select deployment method "Github" and seach for your repository. 
+9. Proceed to link the Heroku app to the repository by clicking on "Connect". 
+10. Click on Deploy.
+
+## Credits
+
+### Code
+
+The following articles helped me with my code:
+
+- [Django filter liked Posts by User](https://stackoverflow.com/questions/63547411/django-filter-liked-posts-by-user)
+- [Using django-dynamic-formset with CreateWithInlinesView from django-extra-views - multiple formsets](https://stackoverflow.com/questions/23110929/using-django-dynamic-formset-with-createwithinlinesview-from-django-extra-views)
+- [form_valid method in django-extra-views. In reality form(s)_valid](https://stackoverflow.com/questions/55572161/form-valid-method-in-django-extra-views-in-reality-forms-valid/55575622)
+- [Django Search Tutorial](https://learndjango.com/tutorials/django-search-tutorial)
+- [How to add favicon to Django in 4 steps](https://simpleit.rocks/python/django/django-favicon-adding/)
+
+### Content
+
+Recipes (ingredients, steps, etc) were taken from [BBC goodfood](https://www.bbcgoodfood.com/recipes/easy-paella)
+
+### Media
+
+All images for the website have been taken from [Unsplash](https://unsplash.com/)
+
+### Acknowledgements
+
+Thank you to Code Institute and the tutors for putting up with my questions and pointing me in the right direction.  
