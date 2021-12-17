@@ -26,6 +26,9 @@
     </section>
     <section class="py-5 light-teal">
         <div class="container">
+            {% if recipe_list|length == 0 %}
+            <p class="text-center py-5">There are no recipes yet.</p>
+            {% else %}
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
                 {% for recipe in recipe_list %}
                 <div class="col">
@@ -42,6 +45,7 @@
             </div>
         </div>
     </section>
+    {% endif %}
 </main>
 
 {% endblock %}
