@@ -205,13 +205,13 @@ input[type=file]::file-selector-button:hover {
 #recipe-form input[type=number],
 #recipe-form select {
 	width: 300px;
-	height: 35px;
+	height: 30px;
 	border-radius: 0.25rem;
 }
 
 #recipe-form input[type=checkbox] {
-	width: 35px;
-	height: 35px;
+	width: 30px;
+	height: 30px;
 }
 
 #recipe-form li {

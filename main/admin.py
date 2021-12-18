@@ -29,12 +29,12 @@ class RecipeAdmin(admin.ModelAdmin):
     inlines = [InLineIngredient, InLineStep]
     list_display = ('title', 'slug', 'author', 'created_on', 'updated_on',)
     list_filter = ('created_on', 'updated_on',)
-    prepopulated_fields = {'slug': ('title',)}
-    search_fields = ('title', 'author',)
+    search_fields = ('title', 'author__username',)
+    exclude = ('likes', 'favourites')
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'recipe', 'body', 'created_on',)
     list_filter = ('created_on',)
-    search_fields = ('recipe', 'author',)
+    search_fields = ('recipe__title', 'author__username',)

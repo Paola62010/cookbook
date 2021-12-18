@@ -3,12 +3,12 @@
 {% block content %}
 
 <main>
-    <div class="container my-5 py-5">
+    <div class="container my-lg-5 py-5">
         <form method="post" id="recipe-form">
             {% csrf_token %}
             <div class="card">
                 <div class="card-header" id="create-header">
-                    <h3 class="text-center py-3">Delete Recipe</h3>
+                    <h3 class="text-center mb-0">Delete Recipe</h3>
                 </div>
                 <div class="card-body ps-md-5" id="create-body">
                     <p class="text-center py-5">Are you sure you want to delete recipe: "{{ recipe.title }}"?</p>

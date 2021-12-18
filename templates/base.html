@@ -20,26 +20,26 @@
     <div class="container">
         <a href="{% url 'home' %}" class="navbar-brand" id="logo"><span class="orange">COOK</span>BOOK</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         <div class="collapse navbar-collapse" id="navmenu">
             <ul class="navbar-nav ms-auto">
-                <li nav-item>
+                <li class="nav-item">
                     <a href="{% url 'home' %}" class="nav-link">HOME</a>
                 </li>
                 {% if user.is_authenticated %}
-                <li nav-item>
+                <li class="nav-item">
                     <a href="{% url 'favourites' %}" class="nav-link">FAVOURITES</a>
                 </li>
-                <li nav-item>
+                <li class="nav-item">
                     <a href="{% url 'account_logout' %}" class="nav-link">LOGOUT</a>
                 </li>
                 {% else %}
-                <li nav-item>
+                <li class="nav-item">
                     <a href="{% url 'account_login' %}" class="nav-link">LOGIN</a>
                 </li>
-                <li nav-item>
+                <li class="nav-item">
                     <a href="{% url 'account_signup' %}" class="nav-link">REGISTER</a>
                 </li>
                 {% endif %}
@@ -69,7 +69,7 @@
 <footer class="teal">
     <div class="container py-2">
         <div class="text-center text-white">
-            <ul class="socialmedia-links">
+            <ul class="socialmedia-links mb-0">
                 <li class="p-2"><a class="text-center text-white" href="https://youtube.com" target="_blank" rel="noopener" aria-label="Visit our Youtube page (opens in a new tab)"><i class="bi bi-youtube"></i></a></li>
                 <li class="p-2"><a class="text-center text-white" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram page (opens in a new tab)"><i class="bi bi-instagram"></i></a></li>
                 <li class="p-2"><a class="text-center text-white" href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page (opens in a new tab)"><i class="bi bi-facebook"></i></a></li>
