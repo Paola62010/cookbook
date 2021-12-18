@@ -196,6 +196,10 @@
         </div>
     </section>
     <section class="container py-lg-5">
+        <div class="mb-3 text-end">
+            <span class="p-3"><i class="icons2 bi bi-heart-fill"></i> ({{ recipe.number_of_likes }})</span>
+            <span class="p-3"><i class="icons2 bi bi-chat-left-text-fill"></i> ({{ recipe.comments.count }})</span>
+        </div>
         <div class="comments p-3 ps-md-5 mb-3">
             {% if comments|length == 0 %}
             <p class="text-center fst-italic">There are no comments yet.</p>
