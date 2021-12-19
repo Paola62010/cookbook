@@ -257,6 +257,11 @@ input[type=file]::file-selector-button:hover {
 	margin: 1.5rem 0;
 }
 
+.errorlist li {
+	list-style-type: none;
+	color: red;
+}
+
 @media only screen and (max-width: 992px) {
 	.icons {
 		font-size: 1.5rem;
