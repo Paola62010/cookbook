@@ -9,6 +9,7 @@ from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline, Co
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CategoryList(generic.ListView):
@@ -33,24 +34,20 @@ class PublicRecipeList(View):
         )
 
 
-class PersonalRecipeList(View):
+class PersonalRecipeList(LoginRequiredMixin, View):
     def get(self, request, slug, *args, **kwargs):
-        if request.user.is_authenticated:
-            category = get_object_or_404(Category, slug=slug)
-            queryset = Recipe.objects.filter(author=request.user, category__slug=slug).order_by('-created_on')
-            context = {
-                'recipe_list': queryset,
-                'category': category
-                }
+        category = get_object_or_404(Category, slug=slug)
+        queryset = Recipe.objects.filter(author=request.user, category__slug=slug).order_by('-created_on')
+        context = {
+            'recipe_list': queryset,
+            'category': category
+            }
 
-            return render(
-                request,
-                'personal_recipes.html',
-                context
-            )
-        else:
-            messages.warning(self.request, 'You do not have access to this section')
-            return redirect('home')
+        return render(
+            request,
+            'personal_recipes.html',
+            context
+        )
 
 
 class RecipeDetail(View):
@@ -146,8 +143,9 @@ class RecipeFavourite(View):
         return HttpResponseRedirect(reverse("recipe_detail", args=[slug, id]))
 
 
-class FavouritesList(View):
+class FavouritesList(LoginRequiredMixin, View):
     def get(self, request):
+
         favourites = User.objects.prefetch_related('recipe_favourites').get(id=request.user.id).recipe_favourites.all()
 
         return render(
@@ -157,7 +155,7 @@ class FavouritesList(View):
         )
 
 
-class CreateRecipe(CreateWithInlinesView):
+class CreateRecipe(LoginRequiredMixin, CreateWithInlinesView):
     model = Recipe
     template_name = 'create_recipe.html'
     form_class = RecipeForm
@@ -181,7 +179,7 @@ class CreateRecipe(CreateWithInlinesView):
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
-class UpdateRecipe(SuccessMessageMixin, UpdateWithInlinesView):
+class UpdateRecipe(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView):
     model = Recipe
     template_name = 'update_recipe.html'
     form_class = UpdateRecipeForm
@@ -199,7 +197,7 @@ class UpdateRecipe(SuccessMessageMixin, UpdateWithInlinesView):
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
-class DeleteRecipe(DeleteView):
+class DeleteRecipe(LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = 'delete_recipe.html'
 
