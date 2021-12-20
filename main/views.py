@@ -9,7 +9,7 @@ from .forms import RecipeForm, UpdateRecipeForm, IngedientInline, StepInline, Co
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, SuccessMessageMixin
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class CategoryList(generic.ListView):
@@ -179,7 +179,7 @@ class CreateRecipe(LoginRequiredMixin, CreateWithInlinesView):
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
 
-class UpdateRecipe(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView):
+class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateWithInlinesView):
     model = Recipe
     template_name = 'update_recipe.html'
     form_class = UpdateRecipeForm
@@ -196,8 +196,14 @@ class UpdateRecipe(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesVie
         messages.success(self.request, 'Recipe updated successfully!')
         return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug, 'id': self.object.id})
 
+    def test_func(self):
+        recipe = self.get_object()
+        if self.request.user == recipe.author:
+            return True
+        return False
 
-class DeleteRecipe(LoginRequiredMixin, DeleteView):
+
+class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Recipe
     template_name = 'delete_recipe.html'
 
@@ -210,6 +216,12 @@ class DeleteRecipe(LoginRequiredMixin, DeleteView):
         slug = category.slug
         messages.success(self.request, 'Recipe deleted successfully!')
         return reverse_lazy('personal_recipes', kwargs={'slug': slug})
+
+    def test_func(self):
+        recipe = self.get_object()
+        if self.request.user == recipe.author:
+            return True
+        return False
 
 
 class SearchResults(View):

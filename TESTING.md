@@ -506,4 +506,20 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
 ## Bugs
 
+- The main challenge I have had during the development of this project was including two inline formsets (for the recipe ingredients and for the recipe steps) in the form for the recipe creation and the form for recipe update. I also wanted these two inline forms to be dynamic and having the user add as many ingredients or steps as needed. After quite a few attempts I came across [Django-extra-views](https://django-extra-views.readthedocs.io/en/latest/), a Django package that introduced additional class-based views to complement those provide by Django itself. I have used CreateWithInlinesView and UpdateWithInlinesView which made it way easier to handle the forms. The documentation is clear and helpful. For the dynamic forms I have used [Django-dynamic-formset](https://github.com/elo80ka/django-dynamic-formset), a jQuery plugin to dynamically add more inline formsets. This was recommended online by other developers and it seems to do the job quite nicely. 
+
+- An issue I encountered was in the search feature in the Admin panel, for both the Recipes and Comments. The error I received when searching an item was (example for comments): "FieldError at /admin/main/comment/, Related Field got invalid lookup: icontains". This was caused by the fact that I had included foreign keys as "search_fields" for classes RecipeAdmin and CommentAdmin in <span>admin.py</span>. I have corrected the values following the instructions in the [Django documentation](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields).
+
 ### Remaining Bugs
+
+- A small bug the project has is related to recipe creation. When the user fills the form, includes ingredients without filling both required fields (for example filling in only the ingredient name but not the quantity), the user is presented with an error message advising that the missing field is required. This is ok, but the recipe image the user had uploaded disappears, forcing the user to upload it again. I would like to have this corrected in future. 
+
+- Another small bug is related to recipe creation and also update. If the user tries to submit a recipe without a required field (title, category, servings, image), the form is correctly not submitted and the user is redirected to the required field, but the message does not always show. It shows in some browsers (they show on Firefox for example but not Google Chrome). I was not able to find a solution to this, I have checked this with my mentor but we were not able to see what could cause this. 
+
+#### Chrome
+
+![Chrome](readme-images/fielderrormissing.png)
+
+#### Firefox
+
+![Firefox](readme-images/fielderrorfirefox.png)
