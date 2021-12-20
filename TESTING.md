@@ -253,7 +253,7 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
     - Steps are highlighted in the manual testing of the Home Page section.
 
-    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to any personal_recipes url (as example /personal/appetizers) and verify that you are redirected to the home page and a warning message appears (message will disappear after 3 seconds).
+    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to any personal_recipes url (as example /personal/appetizers) and verify that you are redirected to the login page. 
 
 2. Top section 
 
@@ -281,12 +281,229 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
 ### Recipe Detail Page
 
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section. 
+
+2. Recipe Detail section
+
+    - For non authenticated users, verify that the recipe information is present: title, creator, creation date, servings, ingredients, steps, recipe image is visible and not distorted. 
+
+    - For users that are authenticted and the recipe is their own, verify the same as for step 1, but also verify that 2 icons are present on the top right corner of the page: the pencil and paper icon and the bin icon. 
+
+        - Hover over the pencil and paper icon and verify that text "Update Recipe" appears.
+    
+        - Click on the pencil and paper icon and verify that you are redirected to the update_recipe page. 
+
+        - Hover over the bin icon and verify that text "Delete Recipe" appears.
+        
+        - Click on the bin icon and verify that you are redirected to the delete_recipe page. 
+
+    - For users that are authenticated but the recipe is not their own, verify the same as for step 1, but also that 2 different icons are present on the top right corner of the page: a heart icon and a star icon. 
+
+        - Hover over the heart icon and verify that text "Like" appears.
+
+        - Click on the heart icon and verify that the icon changes from a empty heart to a filled heart. 
+
+        - Verify that the likes count in the comments section is updated to include your like. The likes count is located just above the comments section, next to the heart icon.
+
+        - Hover over the star icon and verify that text "Favourite" appears. 
+
+        - Click on the star icon and verify that the icon changes from a empty star to a filled star.
+
+        - Navigate to your favourites page and verify that the recipe is now listed there. 
+
+3. Comments section 
+
+    - For users that are not authenticated, verify that only the comments are visible (including comments count and likes count) and there is no comment form available.
+
+    - For users that are authenticated verify that in addition to the comments there is also a comment form to submit a new comment. 
+
+        - Hover over the "submit" button and verify that it changes colour. 
+
+        - Try to submit a comment without filling the body field and verify that a message appears asking to fill in the required field. 
+
+        - Fill in the comment body field and click on the "submit" button, verify that the message is successfully added to the comments section, a success message appears on top of the page. 
+
+        - Verify that the message you have added is the first on top of the comments section. 
+
+        - Verify that the comment count is now updated to include your comment. The comment count is located just above the comments section, next to the speech bubble icon. 
+
+    - Admin panel
+
+        - Navigate to the Admin panel and verify that comments are added correctly when submitted and not added when the form is incorrect. 
+
+4. Footer 
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Recipe Detail Page (finished site)
+
+![Recipe Detail Page - non authenticated user](readme-images/recipedetail-nonauthenticated.png)
+
+![Recipe Detail Page - non authenticated user 2](readme-images/recipedetail-nonauthenticated2.png)
+
+![Personal Recipes Page - authenticated and own recipe](readme-images/recipedetail-authenticated-ownrecipe.png)
+
+![Personal Recipes Page - authenticated and own recipe 2](readme-images/recipedetail-authenticated-ownrecipe2.png)
+
+![Personal Recipes Page - authenticated and not own recipe](readme-images/recipedetail-authenticated.png)
+
+![Personal Recipes Page - authenticated and not own recipe 2](readme-images/recipedetail-authenticated2.png)
+
 ### Create Recipe Page
+
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to the create_recipe url and verify that you are redirected to the login page. 
+
+2. Create Recipe form 
+
+    - Try to submit a recipe without the following required fields and verify that the form is is not submitted: title, category, servings, image.
+
+    - Fill in the requied fields listed in the previous step and click on submit. The steps and ingredients are not mandatory as I want the user to be able to save the recipe and come back to it later if they prefer. Verify that the recipe is successfully submitted and you are redirected to the recipe_detail page which is showing your new recipe. 
+
+    - Fill in the required fields listed in step 1, but now also try to fill in only one of the fields for the ingredient (as example only ingredient name or ingredient quantity). An error should appear when clicking on the "submit button" advising to fill in the required field. 
+
+    - Fill in both the required fields for the ingredient and click on "submit", verify that you are redirected to the recipe_detail page which is showing your new recipe.
+
+    - Create a new recipe and fill in all the required fields and add both fields for 1 ingredient and add 1 step. Click on "submit", verify that you are redirected to the recipe_detail page which is showing your new recipe.
+
+    - Create a new recipe and fill in all the required fields and add both fields for 1 ingredient and add one step. Now click on "add another" for both the steps and ingredients and verify that new forms are dynamically added. Fill in the additional forms and click on "submit". Verify that you are redirected to the recipe_detail page which is showing your new recipe.
+
+    - Create a new recipe and fill in all the required fields. Click on "add another" for both the steps and ingredients until you reach 25 forms, this is the limit I have chosen. When you have 25 forms for each, the "add another" option is no longer shown. Click on "remove" and verify that the forms are dynamically removed. 
+
+    - Navigate to the Admin panel. Verify that recipes are created successfully only when the form is correctly submitted and the user has been redirected to the recipe_detail page. 
+
+3. Footer
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Create Recipe Page (finished site)
+
+![Create Recipe Page - 1](readme-images/createrecipe1.png)
+
+![Create Recipe Page - 2](readme-images/createrecipe2.png)
 
 ### Update Recipe Page
 
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to an update_recipe url and verify that you are redirected to the login page. 
+
+2. Update Recipe Form
+
+    - Verify that the form fields are pre-populted with all details previously submitted during recipe creation, or during a previous update.
+
+    - Try to update any of the fields with new values and click on "submit". Verify that you are redirected to the recipe_detail page which is showing your updated recipe. 
+
+    - Remove the required fields and click on "submit". Verify that you are unable to update the recipe. 
+
+    - If ingredients are present, try to remove one of the 2 required fields and click on "submit". Verify that an error appears asking to fill in the required field. 
+
+    - Click on "Add another" for both steps and ingredients and add additional steps and ingredients, filling in the required fields. Click on "submit". Verify that you are redirected to the recipe_detail page which is showing your updated recipe.
+
+    - Click on "add another" for both the steps and ingredients until you reach 25 forms, this is the limit I have chosen. When you have 25 forms for each, the "add another" option is no longer shown. Click on "remove" and verify that the forms are dynamically removed.  
+
+    - Navigate to the Admin panel. Verify that recipes are updated successfully only when the form is correctly submitted and the user has been redirected to the recipe_detail page. 
+
+3. Footer
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Update Recipe Page (finished site)
+
+![Update Recipe Page - 1](readme-images/updaterecipe1.png)
+
+![Update Recipe Page - 2](readme-images/updaterecipe2.png)
+
 ### Delete Recipe Page
+
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to a delete_recipe url and verify that you are redirected to the login page. 
+
+2. Delete Recipe Form
+
+    - Verify that the user is presented with a form asking to confirm that they want to delete the recipe. The recipe title is contained in the message.
+
+    - Hover over the "confirm" button and verify that it changes colour. 
+
+    - Clik on the "confirm" button and verify that the user is redirected to the personal_recipes page. A confirmation message is shown on top of the page (the message will disappear after 3 seconds). 
+
+3. Footer
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Delete Recipe Page (finished site)
+
+![Delete Recipe Page](readme-images/deleterecipe.png)
 
 ### Favourites Page
 
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+    - Only authenticated users have access to this page. As a non authenticated user, try to navitage to the favourites url and verify that you are redirected to the login page. 
+
+2. Top section
+
+    - Below the page title and call to action, there is the search bar we saw also in the home page. Follow the same steps highlighted in the manual testing for the home page. 
+
+3. Recipe cards
+
+    - Verify that if recipes are present, a list of cards is shown and organised into a grid. Hover over the text section on the cards and verify that it changes colour. Click on the cards and verify that you are redirected to the recipe_detail page for that specific recipe. 
+
+    - Verify that the recipes you see in the list are the ones you have marked as favourites by clicking on the star icon in the recipe_detail page. 
+
+    - If no recipes are present, verify that a message is shown to inform the user.
+
+4. Footer 
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Delete Recipe Page (finished site)
+
+![Favourites Page - with recipes](readme-images/favourites.png)
+![Favourites Page - without recipes](readme-images/favourites2.png)
+
 ### Search Results Page
+
+1. Header and Authentication
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+2. Search results 
+
+    - Verify that the top section of the page displays the word you have searched for.
+
+    - For non authenticate users:
+
+        - Verify that bottom section of the page only contains recipes that have been made public by creators. If no results match your search, verify that a message is displayed advising that your search found no matches.
+
+    - For authenticated users:
+
+        - Verify that bottom section of the page contains: public recipes shared by other creators and personal recipes (public and non public). These are displayed into 2 separate sections. If no results match your search, verify that a message is displayed advising that your search found no matches.
+
+    - For both non authenticated and authenticated users, verify that if recipes are present, a list of cards is shown and organised into a grid. Hover over the text section on the cards and verify that it changes colour. Click on the cards and verify that you are redirected to the recipe_detail page for that specific recipe.
+
+3. Footer
+
+    - Steps are highlighted in the manual testing of the Home Page section.
+
+#### Search Results Page (finished site)
+
+![Search Results Page - non authenticated with recipes](readme-images/search-nonauthenticated.png)
+![Search Results Page - non authenticated without recipes](readme-images/search-nonauthenticated-norecipes.png)
+![Search Results Page - authenticated](readme-images/search-authenticated.png)
+
+## Bugs
+
+### Remaining Bugs
