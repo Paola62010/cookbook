@@ -12,7 +12,7 @@ CookBook is an online platform where food lovers can browse recipes (which are o
 ### The ideal client for this website: 
 
 - Speaks English.
-- Likes food.
+- Loves food and cooking.
 - Likes sharing content with others. 
 
 ### Visitors to this website are searching for: 
@@ -123,6 +123,12 @@ Users that are authenticated have an additional feature. The results are divided
 - I would also like to add the possibility for users to view another user's profile, including the recipes created by that user.
 - It would be nice to make it possible to follow a creator so that the user is notified when that creator posts a new recipe. 
 
+### Possible Improvements
+
+- For my app I have used a generic name ("main"). I have used this as I only needed one app for this project and checking online I saw this was a recommended name. I think I should have used something different ("Recipes" for example) to give a better idea on what the app is for. 
+
+- My mentor advised that the templates should have been in the "main" app folder, this would have been good practice. I will keep this in mind for my next project. 
+
 ## Technologies Used
 
 ### Languages
@@ -188,8 +194,8 @@ Additional information on how to clone a Github repository can be found [here](h
 ### Environment variables and ALLOWED_HOSTS
 
 Create an <span>env.py</span> file. The following variables are required for this project:
-- SECRET_KEY: any key you like.
-- CLOUDINARY_URL: Copy your CLOUDINARY_URL e.g. API Environment Variable from Cloudinary Dashboard (a free account with [Cloudinary](https://cloudinary.com/) is required).
+- SECRET_KEY: any randomly generated key.
+- CLOUDINARY_URL: Copy your CLOUDINARY_URL e.g. API Environment Variable from Cloudinary Dashboard (a free account with [Cloudinary](https://cloudinary.com/) is needed for this).
 - DATABASE_URL: This is the value of DATABASE_URL in Heroku (step 5 of the next section), located in the Settings Tab, in Config Vars.
 
 In <span>settings.py</span> make sure to correct the ALLOWED_HOSTS values to use your localhost and Heroku app name.
@@ -203,7 +209,7 @@ To deploy to Heroku follow these steps:
 3. On top of the next page there is a navigation bar, select "Settings". 
 4. In "Settings" add buildpack Python.
 5. Add Database to App Resources. This is located in the Resources Tab, Add-ons, search and add e.g. "Heroku Postgres". 
-6. In the Settings Tab, in Config Vars, make sure you have the DATABASE_URL added with the previous step and to add the other variables: SECRET_KEY and CLOUDINARY_URL. 
+6. In the Settings Tab, in Config Vars, make sure you have the DATABASE_URL added with the previous step and to add the other variables: SECRET_KEY and CLOUDINARY_URL. Make sure you have the same variables here and in your <span>env.py</span>.
 7. On the navigation bar on top of the page, select now "Deploy".
 8. Select deployment method "Github" and seach for your repository. 
 9. Proceed to link the Heroku app to the repository by clicking on "Connect". 
@@ -223,7 +229,7 @@ The following articles helped me with my code:
 
 ### Content
 
-Recipes (ingredients, steps, etc) were taken from [BBC goodfood](https://www.bbcgoodfood.com/recipes/easy-paella)
+Recipes (ingredients, steps, etc) were taken from [BBC goodfood](https://www.bbcgoodfood.com/)
 
 ### Media
 
@@ -231,4 +237,4 @@ All images for the website have been taken from [Unsplash](https://unsplash.com/
 
 ### Acknowledgements
 
-Thank you to Code Institute and the tutors for putting up with my questions and pointing me in the right direction.  
+Thank you to Code Institute, the tutors and my mentor for putting up with my questions and pointing me in the right direction.  

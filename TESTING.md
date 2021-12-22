@@ -14,7 +14,7 @@ The following validators were used to check the validity of the website code:
 
 [PEP8online](http://pep8online.com/)
 
-There are no errors for both CSS and HTML. I have a warning for HTML for a missing header for a section, but I believe that the header is not needed in that specific scenario. JSHint is returning warnings for my JavaScript as I have included Jinja template language in it. I do get errors for Python for one only reason: "line too long". I left those not to break the code. 
+There are no errors for both CSS and HTML. I have a warning for HTML for a missing header for a section, but I believe that the header is not needed in that specific scenario. JSHint is returning warnings for my JavaScript as I have included Jinja template language in it, tags {% %}. I do get errors for Python for one only reason: "line too long". I left those not to break the code. 
 
 ## User Stories Testing 
 
@@ -291,11 +291,11 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
     - For users that are authenticted and the recipe is their own, verify the same as for step 1, but also verify that 2 icons are present on the top right corner of the page: the pencil and paper icon and the bin icon. 
 
-        - Hover over the pencil and paper icon and verify that text "Update Recipe" appears.
+        - Hover over the pencil and paper icon and verify that it changes colour and that text "Update Recipe" appears.
     
         - Click on the pencil and paper icon and verify that you are redirected to the update_recipe page. 
 
-        - Hover over the bin icon and verify that text "Delete Recipe" appears.
+        - Hover over the bin icon and verify that it changes colour and that text "Delete Recipe" appears.
         
         - Click on the bin icon and verify that you are redirected to the delete_recipe page. 
 
@@ -374,6 +374,8 @@ User stories can be found in the UX section in the [README.md file](README.md)
     - Create a new recipe and fill in all the required fields and add both fields for 1 ingredient and add one step. Now click on "add another" for both the steps and ingredients and verify that new forms are dynamically added. Fill in the additional forms and click on "submit". Verify that you are redirected to the recipe_detail page which is showing your new recipe.
 
     - Create a new recipe and fill in all the required fields. Click on "add another" for both the steps and ingredients until you reach 25 forms, this is the limit I have chosen. When you have 25 forms for each, the "add another" option is no longer shown. Click on "remove" and verify that the forms are dynamically removed. 
+
+    - Create a recipe filling in the required fields. Then try to submit a recipe with the same title. You should get an error advising that you already have a recipe with the title. The form is not submitted.  
 
     - Navigate to the Admin panel. Verify that recipes are created successfully only when the form is correctly submitted and the user has been redirected to the recipe_detail page. 
 
@@ -492,7 +494,7 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
         - Verify that bottom section of the page contains: public recipes shared by other creators and personal recipes (public and non public). These are displayed into 2 separate sections. If no results match your search, verify that a message is displayed advising that your search found no matches.
 
-    - For both non authenticated and authenticated users, verify that if recipes are present, a list of cards is shown and organised into a grid. Hover over the text section on the cards and verify that it changes colour. Click on the cards and verify that you are redirected to the recipe_detail page for that specific recipe.
+    - For both non authenticated and authenticated users, verify that if recipes are present, a list of cards is shown and organised into a grid (2 grids for authenticated users, one for personal recipes and one for the recipe from the community). Hover over the text section on the cards and verify that it changes colour. Click on the cards and verify that you are redirected to the recipe_detail page for that specific recipe.
 
 3. Footer
 
@@ -510,11 +512,13 @@ User stories can be found in the UX section in the [README.md file](README.md)
 
 - An issue I encountered was in the search feature in the Admin panel, for both the Recipes and Comments. The error I received when searching an item was (example for comments): "FieldError at /admin/main/comment/, Related Field got invalid lookup: icontains". This was caused by the fact that I had included foreign keys as "search_fields" for classes RecipeAdmin and CommentAdmin in <span>admin.py</span>. I have corrected the values following the instructions in the [Django documentation](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields).
 
+- A bug I had was that users could possibly delete or update other users' recipes because, even if they could not access the recipes via the templates, they could modify the Url and access those recipes. I have corrected this with the use of UserPassesTestMixin in the views to limit access only to the recipe creator. Documentation can be found [here](https://docs.djangoproject.com/en/3.2/topics/auth/default/).
+
 ### Remaining Bugs
 
-- A small bug the project has is related to recipe creation. When the user fills the form, includes ingredients without filling both required fields (for example filling in only the ingredient name but not the quantity), the user is presented with an error message advising that the missing field is required. This is ok, but the recipe image the user had uploaded disappears, forcing the user to upload it again. I would like to have this corrected in future. 
+- A small bug the project has is related to recipe creation. When the user fills the form, includes ingredients without filling both required fields (for example filling in only the ingredient name but not the quantity), the user is presented with an error message advising that the missing field is required. This is ok and the form is not submitted, but the recipe image the user had uploaded disappears, forcing the user to upload it again. I would like to have this corrected in future. 
 
-- Another small bug is related to recipe creation and also update. If the user tries to submit a recipe without a required field (title, category, servings, image), the form is correctly not submitted and the user is redirected to the required field, but the message does not always show. It shows in some browsers (they show on Firefox for example but not Google Chrome). I was not able to find a solution to this, I have checked this with my mentor but we were not able to see what could cause this. 
+- Another small bug is related to recipe creation and also update. If the user tries to submit a recipe without a required field (title, category, servings, image), the form is correctly not submitted and the user is redirected to the required field, but the message does not always show. It shows in some browsers (Firefox for example but not Google Chrome). I was not able to find a solution to this, I have checked this with my mentor but we were not able to see what could cause this. 
 
 #### Chrome
 
@@ -523,3 +527,23 @@ User stories can be found in the UX section in the [README.md file](README.md)
 #### Firefox
 
 ![Firefox](readme-images/fielderrorfirefox.png)
+
+## Additional Testing 
+
+- Site was tested in different browsers and works nicely in all of them: Google Chrome, Safari, Firefox, Microsoft Edge.
+
+- Used different devices for testing including: MacBook Pro, iPad, iPhone 11 Pro and HP Pavillion Notebook. Latest operating system installed on all devices. 
+
+- Extensive use of Google Chrome DevTools to test site perormance and responsiveness. 
+
+- Use of Lighthouse feature on Google Chrome DevTools to test the site performance. Positive results for all pages.
+
+![Home page](readme-images/lighthouse-home.png)
+![Create Recipe page](readme-images/lighthouse-createrecipe.png)
+![Update Recipe page](readme-images/lighthouse-updaterecipe.png)
+![Delete Recipe page](readme-images/lighthouse-deleterecipe.png)
+![Recipe Detail page](readme-images/lighthouse-recipedetail.png)
+![Public Recipes page](readme-images/lighthouse-publicrecipes.png)
+![Personal Recipes page](readme-images/lighthouse-personalrecipes.png)
+![Favourites page](readme-images/lighthouse-favourites.png)
+![Search Results page](readme-images/lighthouse-searchresults.png)
